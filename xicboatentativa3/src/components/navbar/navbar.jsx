@@ -9,7 +9,7 @@ export const Navbar = () => {
         <div className="navbar">  
             <div className="links">
                 <Link to ="/"><div className='logo'><img src={Logo} alt="logo"/></div></Link>
-                <Link to ="/cart"><Coffee size={32}></Coffee></Link>
+                <Link to ="/cart"><div className='icon'><Coffee size={32}></Coffee></div></Link>
             </div>
         </div>);
 };

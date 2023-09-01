@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from "./components/navbar/navbar";
 import { Shop } from './pages/shop/shop';
 import { Cart } from './pages/cart/cart';
-import { Detail } from './pages/detail/detail'
+import Detail from './pages/detail/detail'
 import { ShopContextProvider } from '../src/context/shop-context';
 
 
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Shop />}></Route>
             <Route path= "/cart"element={<Cart />}></Route>
-            <Route path= "/detail" element={<Detail />}></Route>
+            <Route path= "/detail/:product" element={<Detail />}></Route>
           </Routes>
         </Router>
       </ShopContextProvider>

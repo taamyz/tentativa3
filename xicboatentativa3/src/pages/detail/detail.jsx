@@ -1,21 +1,23 @@
-import React from "react";
-import { ShopContext } from "../../context/shop-context";
-export const Detail = (props) => {
-    const {id, productName, price, productImage} = props.data;
+import React from "react"
+import { useParams } from "react-router-dom"
+import { PRODUCTS } from "../shop/products"
 
-    const {addToCart, cartItems} = useContext(ShopContext);
+function Detail() {
+    const { product } = useParams()
+    const thisProduct = PRODUCTS.find(prod => prod.id === Number(product))
 
-    const cartItemAmount = cartItems[id]
+    if(!thisProduct) {
+       return <div>Produto não encontrado!</div>;
+    }
     
-    return ( <div className="product">
-        <img src={productImage} />
-        <Product data={product}/>
-                    <div className="description">
-                        <p><b>{productName}</b></p>
-                        <p>R${price}</p>
-                    </div>
-                        <button className="addToCartBttn" onClick={() => addToCart(id)}>
-                            Adicionar ao carrinho {cartItemAmount > 0 && <> ({cartItemAmount})</>}
-                        </button>
-        </div>);
-};
+    return (
+        <div>
+            <h1>{thisProduct.productName}</h1>
+            <img src={thisProduct.productImage} alt={thisProduct.productName} />
+            <p>R${thisProduct.price}</p>
+            <p>{thisProduct.description}</p>
+        </div>
+    )
+}
+
+export default Detail

@@ -10,12 +10,10 @@ export const Shop = () => {
                 <h1>Compre os melhores cafés!</h1>
             </div>
             <div className="products">
-                {" "}
-                {PRODUCTS.map((product)=> (
-                    <Product data={product}/>
-                   ))}
+                {PRODUCTS.map(product => <Product key={product.id} data={product} />)}
             </div>
         </div>
-
     );
 };
+
+

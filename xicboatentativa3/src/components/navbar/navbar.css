@@ -4,8 +4,7 @@
     padding: 0;
     background-color: #F1EDE1;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: space-between;
   }
   
   .links {
@@ -21,10 +20,13 @@
     font-size: 25px;
   }
 
+.icon {
+  display: flex;
+  align-items: right;
+}
+
 .logo {
     display: flex;
-    align-items: flex-start;
-    justify-content: right;
-    width: 48px;
-    height: auto;
+    width: auto;
+    height: 48;
 }
