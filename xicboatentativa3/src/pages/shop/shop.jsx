@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react"; 
-import "../shop/shop.css";
+import React, { useEffect, useState, useContext } from "react";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { app } from "../../service/firebase.js";
-import morango1 from '../../assets/morango1.jpg';
+import { ShopContext } from "../../context/shop-context"; 
 import { 
     ContainerFutureProducts, 
     ListProducts, 
@@ -10,31 +9,43 @@ import {
     NameProduct, 
     DescriptionProduct, 
     PriceProduct, 
-    AddToCartButton,
-    ProductDetailLink
-} from "./style.js";
-import { ShopContext } from "../../context/shop-context"; 
+    AddToCartButton, 
+    ProductDetailLink 
+} from "./style";
+import "../shop/shop.css";
 
 export const Shop = () => {
-
     const [productList, setProductList] = useState([]); 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     
     const { addToCart, cartItems } = useContext(ShopContext); 
-    
-    const firestore = getFirestore(app);
 
     useEffect(() => {
         const fetchProdutos = async () => {
-            const produtosCollection = collection(firestore, "produtos");
-            const produtosSnapshot = await getDocs(produtosCollection);
-
-            setProductList(produtosSnapshot.docs.map((doc) => ({
-                id: doc.id, ...doc.data()
-            })));
+            try {
+                const produtosCollection = collection(getFirestore(app), "produtos");
+                const produtosSnapshot = await getDocs(produtosCollection);
+    
+                setProductList(produtosSnapshot.docs.map((doc) => ({
+                    id: doc.id, 
+                    title: doc.data().title, 
+                    price: doc.data().price,
+                    description: doc.data().description,
+                    image: doc.data().image,
+                })));
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
         };
-        
+    
         fetchProdutos();
-    }, [firestore]);
+    }, []);
+
+    if (loading) return <p>Carregando produtos...</p>;
+    if (error) return <p>Pior do que pilão, nenhum produto aqui não {error}</p>;
 
     return (
         <ContainerFutureProducts>
@@ -42,7 +53,7 @@ export const Shop = () => {
             <ListProducts>
                 {productList.map(product => (
                     <Product key={product.id}>
-                        <img src={`src/assets/${product.image}`} alt={product.title} />
+                        <img src={`src/assets/${product.image}`} alt={product.productName} />
                         <NameProduct>{product.productName}</NameProduct>
                         <PriceProduct>R${product.price}</PriceProduct>
                         <DescriptionProduct>{product.description}</DescriptionProduct> 

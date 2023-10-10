@@ -1,50 +1,59 @@
-.navbar .links {
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px; 
-  width: 100%;
-
-}
-
-.navbar {
-  background-color:wheat;
-}
-
-.cart {
-  justify-content: space-between;
-  align-items: center; 
-  width: 100%;
-  height: auto;
-}
-
-  
-.links a {
-  text-decoration: none;
-  color: #1c1c1c;
-  margin-left: 20px;
-  font-size: 25px;
-}
-
-.icon {
-  width: 32px;  
-  height: auto; 
+  background-color: wheat; /* Full bleed color */
+  padding: 0; /* Remove padding on the sides */
 }
 
 .logo {
-  width: 400px;
-  height: auto;
-  display: flex;        
-  justify-content: center;
+  flex: 1; /* Gives the logo space to grow */
+  display: flex;
+  justify-content: center; /* Center the logo horizontally */
   align-items: center;
+  font-size: 24px; /* Adjust font size */
 }
 
-.cart {
-  display: grid
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Ensures cart and values are on the far right */
+  gap: 20px; /* Add some space between links */
 }
 
-.logo img, .icon {
-max-width: 100%;  
-height: auto;   
-  }
-  
+.links a {
+  text-decoration: none;
+  color: #1c1c1c;
+  font-size: 18px; /* Adjust font size */
+}
+
+/* Products */
+.products {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+  gap: 20px; /* Add some space between products */
+  justify-items: center; /* Center products horizontally */
+}
+
+.product {
+  border-radius: 15px;
+  width: 100%;
+  max-width: 300px; /* Limit product width */
+  text-align: center;
+  padding: 20px; /* Add padding for better spacing */
+}
+
+.product img {
+  width: 100%;
+  max-width: 100%; /* Ensure images fit within the product container */
+}
+
+.addToCartBttn {
+  background-color: transparent;
+  border: 2px solid rgb(19, 19, 19);
+  min-width: 100px;
+  padding: 10px; /* Adjust padding for button size */
+  border-radius: 15px;
+  display: inline-block; /* Ensure buttons are on the same line */
+}

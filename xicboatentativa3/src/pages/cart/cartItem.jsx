@@ -1,27 +1,24 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../../context/shop-context";
 
-export const CartItem = (props) => {
-    
-    const {id, productName, price, productImage} = props.data;
-    const { cartItems, addToCart, removeFromCart, updateCartItemCount } = useContext(ShopContext);
+export const CartItem = ({ data }) => {
+    const { id, title, price, image } = data;
+    const { cartItems, addToCart, removeFromCart } = useContext(ShopContext);
 
-    return <div className = "cartItem">
-        <img src={productImage} />
-        <div className="description">
-            <p>
-                {" "}
-                <b>{productName}</b>
-            </p>
-            <p>
-                <b>R${price}</b>
-                <div className="countHandler">
-                    <button onClick={() => removeFromCart(id)}> - </button>
-                    <input value={cartItems[id]} onChange={(e) => updateCartItemCount(Number(e.target.value), id)}></input>
-                    <button onClick={() => addToCart(id)}> + </button>
-                </div>
-            </p>
+    const quantity = cartItems[id] || 0;
+
+    return (
+        <div className="cart-item">
+            <img src={`src/assets/${image}`} alt={title} />
+            <div className="item-details">
+                <p>{title}</p>
+                <p>R${price}</p>
+            </div>
+            <div className="item-controls">
+                <button onClick={() => removeFromCart(id)}>-</button>
+                <span>{quantity}</span>
+                <button onClick={() => addToCart(id)}>+</button>
+            </div>
         </div>
-
-    </div>
-}
+    );
+};
